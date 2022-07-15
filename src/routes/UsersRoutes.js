@@ -7,9 +7,8 @@ const {
 
 // Criação de usuários
 const createUserController = new CreateUserController();
-usersRoutes.post("/users", createUserController.handle);
 
-// Listagem de usuários
-usersRoutes.get("/users", createUserController.list);
+// http://localhost:3333/users/ -> implementar a partir daqui
+usersRoutes.post("/", createUserController.handle);
 
 module.exports = usersRoutes;

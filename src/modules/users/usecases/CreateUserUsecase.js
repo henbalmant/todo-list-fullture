@@ -1,10 +1,7 @@
 const users = [];
 
-const { v4: uuidV4 } = require("uuid");
-class CreateUserController {
-  handle(request, response) {
-    const { name, username, email } = request.body;
-
+class CreateUserUsecase {
+  execute({ name, username, email }) {
     // Não pode ter o mesmo e-mail que outro usuário
     // Não pode ter o mesmo username que outro usuário
 
@@ -18,12 +15,12 @@ class CreateUserController {
       return response.json({ error: "User already exists" }).send(400);
     }
 
-    const user = { id: uuidV4(), name, username, email };
+    const user = { name, username, email };
 
     users.push(user);
 
-    return response.json(user).send(201);
+    return user;
   }
 }
 
-module.exports = { CreateUserController };
+module.exports = { CreateUserUsecase };
