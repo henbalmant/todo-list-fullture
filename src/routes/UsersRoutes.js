@@ -1,14 +1,16 @@
-const Router = require("express");
+import Router from "express";
+
+import { createUserController } from "../modules/users/usecases/CreateUser/index.js";
+import { listUsersController } from "../modules/users/usecases/ListUsers/index.js";
+
 const usersRoutes = Router();
 
-const {
-  CreateUserController,
-} = require("../modules/users/controllers/CreateUserController");
+usersRoutes.post("/", (request, response) => {
+  return createUserController.handle(request, response);
+});
 
-// Criação de usuários
-const createUserController = new CreateUserController();
+usersRoutes.get("/", (request, response) => {
+  return listUsersController.handle(request, response);
+});
 
-// http://localhost:3333/users/ -> implementar a partir daqui
-usersRoutes.post("/", createUserController.handle);
-
-module.exports = usersRoutes;
+export default usersRoutes;

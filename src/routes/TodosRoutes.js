@@ -1,13 +1,16 @@
-const Router = require("express");
+import Router from "express";
+
+import { createTodoController } from "../modules/todos/usecases/CreateTodo/index.js";
+import { findAllByUsernameController } from "../modules/todos/usecases/FindAllByUsername/index.js";
+
 const todosRoutes = Router();
 
-const {
-  TodoController,
-} = require("../modules/todos/controllers/TodoController");
-const todoController = new TodoController();
+todosRoutes.post("/", (request, response) => {
+  return createTodoController.handle(request, response);
+});
 
-todosRoutes.post("/", todoController.create);
-todosRoutes.get("/:username", todoController.findAllByUsername);
-todosRoutes.patch("/:id", todoController.markTodoAsDone);
+todosRoutes.get("/:username", (request, response) => {
+  return findAllByUsernameController.handle(request, response);
+});
 
-module.exports = todosRoutes;
+export default todosRoutes;
